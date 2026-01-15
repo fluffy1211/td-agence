@@ -27,15 +27,6 @@ module.exports = {
         },
         onDelete: 'CASCADE'
       },
-      destinationId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Destinations',
-          key: 'id'
-        },
-        onDelete: 'CASCADE'
-      },
       jour: {
         allowNull: false,
         type: Sequelize.INTEGER
@@ -43,18 +34,6 @@ module.exports = {
       ordre: {
         allowNull: false,
         type: Sequelize.INTEGER
-      },
-      type: {
-        allowNull: false,
-        type: Sequelize.ENUM('Visite', 'Sport', 'Gastronomie', 'Shopping', 'Spectacle')
-      },
-      niveauPhysique: {
-        allowNull: false,
-        type: Sequelize.ENUM('Faible', 'Modéré', 'Élevé')
-      },
-      ageMinimum: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0
       },
       estInclus: {
         type: Sequelize.BOOLEAN,

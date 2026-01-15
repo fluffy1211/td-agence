@@ -17,13 +17,29 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Activite.init({
-    nom: DataTypes.STRING,
+    nom: {
+      type: DataTypes.STRING(100),
+      allowNull: false
+    },
     description: DataTypes.TEXT,
-    dureeHeures: DataTypes.DECIMAL,
-    prix: DataTypes.DECIMAL,
-    type: DataTypes.STRING,
-    niveauPhysique: DataTypes.STRING,
-    ageMinimum: DataTypes.INTEGER,
+    dureeHeures: {
+      type: DataTypes.DECIMAL(4, 1),
+      validate: { min: 0.1 }
+    },
+    prix: {
+      type: DataTypes.DECIMAL(8, 2),
+      validate: { min: 0.01 }
+    },
+    type: {
+      type: DataTypes.ENUM('Visite','Sport','Gastronomie','Shopping','Spectacle')
+    },
+    niveauPhysique: {
+      type: DataTypes.ENUM('Faible','Modéré','Élevé')
+    },
+    ageMinimum: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
     destinationId: DataTypes.INTEGER
   }, {
     sequelize,

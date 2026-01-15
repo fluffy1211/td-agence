@@ -16,13 +16,24 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Client.init({
-    nom: DataTypes.STRING,
-    prenom: DataTypes.STRING,
-    email: DataTypes.STRING,
-    telephone: DataTypes.STRING,
+    nom: {
+      type: DataTypes.STRING(50),
+      allowNull: false
+    },
+    prenom: {
+      type: DataTypes.STRING(50),
+      allowNull: false
+    },
+    email: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+      unique: true,
+      validate: { isEmail: true }
+    },
+    telephone: DataTypes.STRING(20),
     dateNaissance: DataTypes.DATEONLY,
-    ville: DataTypes.STRING,
-    pays: DataTypes.STRING,
+    ville: DataTypes.STRING(50),
+    pays: DataTypes.STRING(50),
     preferences: DataTypes.TEXT
   }, {
     sequelize,

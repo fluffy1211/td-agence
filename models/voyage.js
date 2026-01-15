@@ -19,15 +19,46 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Voyage.init({
-    titre: DataTypes.STRING,
+    titre: {
+      type: DataTypes.STRING(100),
+      allowNull: false
+    },
     description: DataTypes.TEXT,
-    dateDepart: DataTypes.DATE,
-    dateRetour: DataTypes.DATE,
-    dureeJours: DataTypes.INTEGER,
-    prixBase: DataTypes.DECIMAL,
-    placesDisponibles: DataTypes.INTEGER,
-    niveauDifficulte: DataTypes.STRING,
-    typeVoyage: DataTypes.STRING,
+    dateDepart: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    dateRetour: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      validate: {
+        isAfterDepart(value) {
+          if (value <= this.dateDepart) {
+            throw new Error('dateRetour doit être après dateDepart');
+          }
+        }
+      }
+    },
+    dureeJours: {
+      type: DataTypes.INTEGER,
+      validate: { min: 1 }
+    },
+    prixBase: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+      validate: { min: 0.01 }
+    },
+    placesDisponibles: {
+      type: DataTypes.INTEGER,
+      defaultValue: 20
+    },
+    niveauDifficulte: {
+      type: DataTypes.ENUM('Facile','Modéré','Difficile','Expert'),
+      defaultValue: 'Modéré'
+    },
+    typeVoyage: {
+      type: DataTypes.ENUM('Aventure','Culturel','Balnéaire','Gastronomique','Ecotourisme')
+    },
     destinationId: DataTypes.INTEGER
   }, {
     sequelize,

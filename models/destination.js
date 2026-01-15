@@ -17,15 +17,28 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Destination.init({
-    nom: DataTypes.STRING,
-    pays: DataTypes.STRING,
-    continent: DataTypes.STRING,
+    nom: {
+      type: DataTypes.STRING(100),
+      allowNull: false
+    },
+    pays: {
+      type: DataTypes.STRING(50),
+      allowNull: false
+    },
+    continent: {
+      type: DataTypes.ENUM('Europe','Asie','Amérique','Afrique','Océanie','Antarctique')
+    },
     description: DataTypes.TEXT,
-    climat: DataTypes.STRING,
-    meilleurePeriode: DataTypes.STRING,
-    langues: DataTypes.STRING,
-    monnaie: DataTypes.STRING,
-    isActive: DataTypes.BOOLEAN
+    climat: {
+      type: DataTypes.ENUM('Tropical','Désertique','Tempéré','Polaire','Montagnard')
+    },
+    meilleurePeriode: DataTypes.STRING(50),
+    langues: DataTypes.STRING(100),
+    monnaie: DataTypes.STRING(20),
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    }
   }, {
     sequelize,
     modelName: 'Destination',

@@ -10,27 +10,20 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
       VoyageActivite.belongsTo(models.Voyage, { foreignKey: 'voyageId', as: 'voyage' });
       VoyageActivite.belongsTo(models.Activite, { foreignKey: 'activiteId', as: 'activite' });
-      VoyageActivite.belongsTo(models.Destination, { foreignKey: 'destinationId', as: 'destination' });
     }
   }
   VoyageActivite.init({
     voyageId: DataTypes.INTEGER,
     activiteId: DataTypes.INTEGER,
-    destinationId: DataTypes.INTEGER,
-    jour: DataTypes.INTEGER,
-    ordre: DataTypes.INTEGER,
-    type: {
-      type: DataTypes.ENUM('Visite', 'Sport', 'Gastronomie', 'Shopping', 'Spectacle')
-    },
-    niveauPhysique: {
-      type: DataTypes.ENUM('Faible', 'Modéré', 'Élevé')
-    },
-    ageMinimum: {
+    jour: {
       type: DataTypes.INTEGER,
-      defaultValue: 0
+      allowNull: false
+    },
+    ordre: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
     estInclus: {
       type: DataTypes.BOOLEAN,
